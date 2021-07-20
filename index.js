@@ -122,12 +122,13 @@ app.post('/api/new-ingredient', async (req, res) => {
   }
 });
 
-app.delete('/api/cake', async (req, res) => {
+app.post('/api/cake', async (req, res) => {
   let data = req.body;
-  console.log('data', data);
+  console.log('data', data.data);
   try {
+    await pool.query('DELETE FROM Cake WHERE nome_id = $1 ', [data.data.id]);
     await pool.query('DELETE FROM Cake_name WHERE nome_bolo = $1 ', [
-      data.cake_name,
+      data.data.cake_name,
     ]);
     res.status(200).json('OK');
   } catch (err) {
