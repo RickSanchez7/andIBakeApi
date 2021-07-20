@@ -1,13 +1,5 @@
 CREATE DATABASE andibake;
 
-CREATE TABLE Cake (
-  id SERIAL PRIMARY KEY,
-  nome_id INTEGER REFERENCES Cake_name (id),
-  ingredientes_id INTEGER REFERENCES Ingredientes (id),
-  quantidade INTEGER
-);
-
-
 CREATE TABLE Cake_name (
   id SERIAL PRIMARY KEY,
   nome_bolo TEXT,
@@ -19,6 +11,14 @@ CREATE TABLE Ingredientes (
   nome_ingrediente TEXT,
   unidade TEXT
 );
+
+CREATE TABLE Cake (
+  id SERIAL PRIMARY KEY,
+  nome_id INTEGER REFERENCES Cake_name (id),
+  ingredientes_id INTEGER REFERENCES Ingredientes (id),
+  quantidade INTEGER
+);
+
 
 INSERT INTO Cake_name (nome_bolo, quantidade) VALUES ('Bolo de Chocolate', 2);
 INSERT INTO Cake_name (nome_bolo, quantidade) VALUES ('Bolo de cenoura', 2);
@@ -42,6 +42,6 @@ INSERT INTO Cake (nome_id, ingredientes_id, quantidade) VALUES (2, 5, 150);
 
 -- Down
 
-DROP TABLE Cake;
-DROP TABLE Ingredientes;
-DROP TABLE Cake_name;
+-- DROP TABLE Cake;
+-- DROP TABLE Ingredientes;
+-- DROP TABLE Cake_name;
