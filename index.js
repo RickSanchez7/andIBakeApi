@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/api', async (req, res) => {
+  return res.status(200).json('Hello there');
+});
+
 app.get('/api/ingredients-count', async (req, res) => {
   try {
     const ingredientCount = await pool.query(
