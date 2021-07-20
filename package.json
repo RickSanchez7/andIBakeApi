@@ -16,5 +16,9 @@
     "express": "^4.17.1",
     "pg": "^8.6.0"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": "14.15.1",
+    "npm": "7.0.7"
+  }
 }
