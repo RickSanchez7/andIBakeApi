@@ -1,4 +1,4 @@
-CREATE DATABASE andibake;
+-- CREATE DATABASE andibake;
 
 CREATE TABLE Cake_name (
   id SERIAL PRIMARY KEY,
