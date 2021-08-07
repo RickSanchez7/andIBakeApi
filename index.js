@@ -16,10 +16,24 @@ app.get('/api/ingredients-count', async (req, res) => {
     const ingredientCount = await pool.query(
       'SELECT Ingredientes.nome_ingrediente, Ingredientes.unidade, SUM(Cake.quantidade * Cake_name.quantidade) as quantidade FROM ((Cake INNER JOIN Ingredientes ON Cake.ingredientes_id = Ingredientes.id) INNER JOIN Cake_name ON Cake.nome_id = Cake_name.id) WHERE Cake_name.quantidade > 0 GROUP BY Ingredientes.id'
     );
-    // const ingredientCount = await pool.query('SELECT * FROM Cake');
     // console.log('ing', ingredientCount);
 
     res.status(200).json(ingredientCount.rows);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json('Something went wrong');
+  }
+});
+
+app.get('/api/cakes', async (req, res) => {
+  try {
+    const cakes = await pool.query(
+      'SELECT Cake_name.id, Cake_name.nome_bolo, array_agg(Ingredientes.nome_ingrediente) as ingredientes, array_agg(Ingredientes.unidade) as unidade, array_agg(Cake.quantidade) as quantidade FROM ((Cake left JOIN Ingredientes ON Cake.ingredientes_id = Ingredientes.id) left JOIN Cake_name ON Cake.nome_id = Cake_name.id) Group by Cake_name.id, Cake_name.nome_bolo'
+    );
+
+    console.log(cakes.rows);
+
+    res.status(200).json(cakes.rows);
   } catch (err) {
     console.log(err);
     res.status(400).json('Something went wrong');
